@@ -102,9 +102,9 @@
             },
             findNode(id) {
                 let node = this.treeData.filter(item => item.id === id);
-                if (!node) {
+                if (!node || node.length == 0) {
                     this.treeData.find(item => {
-                        const res = this.findInChildren(item.children);
+                        const res = this.findInChildren(item.children, id);
                         if (res) {
                             node = res;
                         }
@@ -114,7 +114,7 @@
             },
             findInChildren(node, id) {
                 const node_ = node.filter(item => item.id === id);
-                if (!node_ && Array.isArray(node.children) && node.children.length > 0) {
+                if (!node_ && Array.isArray(node) && node.length > 0) {
                     this.findInChildren(node.children)
                 }
                 else {
